@@ -14,7 +14,7 @@ HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
 HOST = 'https://www.eldorado.ru'
 FILE = 'propositions.csv'
 TEMP_FILE = 'tmp.csv'
-URL_PATTERN = 'https://eldorado.ru/.*'
+URL_PATTERN = 'https://www.eldorado.ru/c/.*'
 CURRENT_DATE = date.today().strftime("%d/%m/%Y")
 
 
@@ -70,11 +70,11 @@ def parse():
     print('Учтите, что парсинг может занять некоторое время (иногда, довольно продолжительное)', end='\n\n')
 
     URL = input('Введите URL раздела с товарами, по которому Вы хотите получить информацию: ')
-    # while True:
-    #     if not re.fullmatch(URL_PATTERN, URL):
-    #         URL = input('Кажется, Вы ввели неправильную ссылку. Попробуйте еще раз: ')
-    #     else:
-    #         break
+    while True:
+        if not re.fullmatch(URL_PATTERN, URL):
+            URL = input('Кажется, Вы ввели неправильную ссылку. Попробуйте еще раз: ')
+        else:
+            break
 
     html = get_html(URL)
     if html.status_code == 200:
