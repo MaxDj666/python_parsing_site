@@ -1,82 +1,3 @@
-# import requests
-# from bs4 import BeautifulSoup
-# import csv
-# import os
-# from datetime import date
-#
-# URL = 'https://www.eldorado.ru/c/elektricheskie-plity'
-# HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-#            'AppleWebKit/537.36 (KHTML, like Gecko) '
-#            'Chrome/96.0.4664.93 Safari/537.36', 'accept': '*/*'}
-# HOST = 'https://www.eldorado.ru'
-# FILE = 'propositions.csv'
-# CURRENT_DATE = date.today()
-#
-#
-# def get_html(url, params=None):
-#     r = requests.get(url, headers=HEADERS, params=params)
-#     return r
-#
-#
-# def get_pages_count(html):
-#     soup = BeautifulSoup(html, 'html.parser')
-#     pagination = soup.find_all('a', class_='button')
-#     print(pagination)
-#     # if pagination:
-#     #     return int(pagination[-1].get_text())
-#     # else:
-#     #     return 1
-#
-#
-# # def get_content(html):
-# #     soup = BeautifulSoup(html, 'html.parser')
-# #     items = soup.find_all()
-# #
-# #     propositions = []
-# #     for item in items:
-# #         name = item.find().get_text
-# #         brand = item.find().get_text
-# #         price = item.find().get_text
-# #         link = HOST + item.find().get('href')
-# #
-# #         propositions.append({
-# #             'name': name,
-# #             'brand': brand,
-# #             'price': price,
-# #             'link': link,
-# #         })
-# #     return propositions
-# #
-# #
-# def save_file(items, path):
-#     with open(path, 'w', newline='') as file:
-#         writer = csv.writer(file, delimiter=';')
-#         writer.writerow([f'Название', f'Бренд', f'Цена на {CURRENT_DATE}', f'Ссылка'])
-#         for item in items:
-#             writer.writerow([item['name'], item['brand'], item['price'], item['link']])
-#
-#
-# def parse():
-#     # URL = input('Введите URL: ')
-#     # URL = URL.strip()
-#     html = get_html(URL)
-#     if html.status_code == 200:
-#         # propositions = []
-#         pages_count = get_pages_count(html.text)
-#         # for page in range(1, pages_count + 1):
-#         #     print(f'Парсинг страницы {page} из {pages_count}...')
-#         #     html = get_html(URL, params={'page': page})
-#         #     propositions.extend(get_content(html.text))
-#         # save_file(propositions, FILE)
-#         # print(f'Найдено {len(propositions)} предложений')
-#         # os.startfile(FILE)
-#     else:
-#         print('Error')
-#
-#
-# parse()
-
-
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -93,7 +14,7 @@ HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
 HOST = 'https://www.eldorado.ru'
 FILE = 'propositions.csv'
 TEMP_FILE = 'tmp.csv'
-URL_PATTERN = 'https://eldorado.ru/c/.*'
+URL_PATTERN = 'https://eldorado.ru/.*'
 CURRENT_DATE = date.today().strftime("%d/%m/%Y")
 
 
@@ -149,11 +70,11 @@ def parse():
     print('Учтите, что парсинг может занять некоторое время (иногда, довольно продолжительное)', end='\n\n')
 
     URL = input('Введите URL раздела с товарами, по которому Вы хотите получить информацию: ')
-    while True:
-        if not re.fullmatch(URL_PATTERN, URL):
-            URL = input('Кажется, Вы ввели неправильную ссылку. Попробуйте еще раз: ')
-        else:
-            break
+    # while True:
+    #     if not re.fullmatch(URL_PATTERN, URL):
+    #         URL = input('Кажется, Вы ввели неправильную ссылку. Попробуйте еще раз: ')
+    #     else:
+    #         break
 
     html = get_html(URL)
     if html.status_code == 200:
